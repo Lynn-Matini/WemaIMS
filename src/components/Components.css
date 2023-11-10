@@ -1,0 +1,125 @@
+.sidenav {
+  height: 100vh;
+  background-color: #1d2126;
+}
+
+.userText {
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.userText p {
+  margin-right: 2rem;
+}
+
+.sidenav ul {
+  padding-top: 4rem;
+}
+
+.sidenav ul li {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+}
+
+.sidenav ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.sidenav ul li a:hover {
+  color: #fdb701;
+}
+
+.header {
+  background-color: black;
+  color: white;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-top: 7px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}
+
+/* Stat-box */
+
+.dashboardDescription {
+  font-size: 10px;
+  background-color: #646cff;
+  color: white;
+  height: 25vh;
+  display: grid;
+  gap: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.description {
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.pTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-top: 7px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+  margin-top: 1rem;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+thead th {
+  border-bottom: 2px solid #dedede;
+}
+
+tfoot th {
+  border-top: 2px solid #dedede;
+}
+
+td {
+  border-bottom: 1px solid #dedede;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+}
+
+caption {
+  padding: 1rem 0;
+  caption-side: bottom;
+  color: #ababab;
+}
+
+.striped-table tbody tr:nth-child(odd) {
+  background-color: #f8f8f8;
+}
+
+.contain-table {
+  overflow-x: auto;
+}
+
+@media (min-width: 600px) {
+  .contain-table {
+    width: 100%;
+  }
+}

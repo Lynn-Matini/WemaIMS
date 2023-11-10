@@ -1,4 +1,5 @@
-import { projectAuth } from "../firebase/config";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 let error = null;
 
@@ -6,7 +7,7 @@ const login = async (email, password) => {
   error = null;
 
   try {
-    const res = await projectAuth.signInWithEmailAndPassword(email, password);
+    const res = await signInWithEmailAndPassword(auth, email, password);
     error = null;
     console.log(res.user);
     return res;

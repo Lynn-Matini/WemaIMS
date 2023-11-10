@@ -1,6 +1,7 @@
-import { useState } from "react";
-import LoginFormComponent from "../components/LoginFormComponent";
-import SignUpFormComponent from "../components/SignUpFormComponent";
+import { useState } from 'react';
+import LoginFormComponent from '../components/Forms/LoginFormComponent';
+import SignUpFormComponent from '../components/Forms/SignUpFormComponent';
+
 const Authentication = () => {
   const [toggleForm, setToggleForm] = useState(true);
   const handleToggle = () => {

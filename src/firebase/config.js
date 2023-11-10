@@ -1,23 +1,16 @@
-// Import the functions you need from the SDKs you need
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAvpNOVLCi9FpHQWSCfx4QAYHKnMxXV2u4",
-  authDomain: "react-route-protection.firebaseapp.com",
-  projectId: "react-route-protection",
-  storageBucket: "react-route-protection.appspot.com",
-  messagingSenderId: "868663885845",
-  appId: "1:868663885845:web:4eb72844f39a21051a0e1c",
+  apiKey: 'AIzaSyCgFoxpxyu2FUx4142li9e1ZnWw7_6PhIk',
+  authDomain: 'wema-ims.firebaseapp.com',
+  projectId: 'wema-ims',
+  storageBucket: 'wema-ims.appspot.com',
+  messagingSenderId: '555539923295',
+  appId: '1:555539923295:web:93c6ed80c77442f72ff6ea',
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-const projectAuth = firebase.auth();
-
-export { projectAuth };
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth();

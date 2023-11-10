@@ -1,5 +1,4 @@
-import { projectAuth } from "../firebase/config";
-
+import { auth } from '../firebase/config';
 let error = null;
 
 const signUp = async (email, password, displayName) => {
@@ -7,13 +6,10 @@ const signUp = async (email, password, displayName) => {
 
   try {
     // sign up with email and password
-    const res = await projectAuth.createUserWithEmailAndPassword(
-      email,
-      password
-    );
+    const res = await createUserWithEmailAndPassword(auth, email, password);
 
     if (!res) {
-      throw new Error("Something went wrong, try again!");
+      throw new Error('Something went wrong, try again!');
     }
 
     // include the display name in the user profile
