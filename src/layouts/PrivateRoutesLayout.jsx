@@ -8,7 +8,7 @@ const PrivateRoutesLayout = () => {
     <Outlet />
   ) : (
     // keep the previous navigation stack
-    <Navigate to="/authentication" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 

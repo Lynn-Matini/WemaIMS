@@ -11,7 +11,7 @@ const SignUpFormComponent = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/authentication';
+  const from = location.state?.from?.pathname || '/';
 
   const { error, signUp } = userSignUp();
 

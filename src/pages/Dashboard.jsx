@@ -11,44 +11,46 @@ const Dashboard = () => {
           <SideNav />
         </div>
         <div className="col-10 mt-5">
-          <div class="row mb-5">
+          <div className="row mb-5">
             <div className="col-3 ms-5">
-              <div class="dashboardDescription">
-                <p class="pTitle">6</p>
-                <p class="description">Number of Applied Products</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">6</p>
+                <p className="description">Number of Applied Products</p>
               </div>
             </div>
             <div className="col-3 ">
-              <div class="dashboardDescription">
-                <p class="pTitle">4</p>
-                <p class="description">Number of Claims</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">4</p>
+                <p className="description">Number of Claims</p>
               </div>
             </div>
             <div className="col-3">
-              <div class="dashboardDescription">
-                <p class="pTitle">2</p>
-                <p class="description">Pending Approval</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">2</p>
+                <p className="description">Pending Approval</p>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div className="row">
             <div className="col-3 ms-5">
-              <div class="dashboardDescription">
-                <p class="pTitle">4</p>
-                <p class="description">Policy Categories</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">4</p>
+                <p className="description">Policy Categories</p>
               </div>
             </div>
             <div className="col-3">
-              <div class="dashboardDescription">
-                <p class="pTitle">0</p>
-                <p class="description">Total Questions Asked</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">0</p>
+                <p className="description">Total Questions Asked</p>
               </div>
             </div>
             <div className="col-3">
-              <div class="dashboardDescription">
-                <p class="pTitle">42</p>
-                <p class="description">Number of Available Health Providers</p>
+              <div className="dashboardDescription">
+                <p className="pTitle">42</p>
+                <p className="description">
+                  Number of Available Health Providers
+                </p>
               </div>
             </div>
           </div>

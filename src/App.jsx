@@ -1,6 +1,5 @@
 import './App.css';
 import Error from './pages/Error';
-import Home from './pages/Home';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
@@ -11,8 +10,7 @@ function App() {
   return (
     <Routes>
       {/* public routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/authentication" element={<Authentication />} />
+      <Route path="/" element={<Authentication />} />
       <Route path="*" element={<Error />} />
 
       {/* private routes */}
