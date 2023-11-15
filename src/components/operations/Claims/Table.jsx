@@ -1,6 +1,6 @@
-import '../Components.css';
+import '../../Components.css';
 
-const Table = ({ products, handleEdit, handleDelete }) => {
+const Table = ({ claims, handleEdit, handleDelete }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KEN',
@@ -13,25 +13,27 @@ const Table = ({ products, handleEdit, handleDelete }) => {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Monthly Premium</th>
-            <th>Benefits</th>
+            <th>Claim Name</th>
+            <th>Provider Name</th>
+            <th>Amount</th>
+            <th>Notes</th>
             <th colSpan={2} className="text-center">
               Actions
             </th>
           </tr>
         </thead>
         <tbody>
-          {products ? (
-            products.map((product, i) => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.productName}</td>
-                <td>{formatter.format(product.premium)}</td>
-                <td>{product.benefits}</td>
+          {claims ? (
+            claims.map((claim, i) => (
+              <tr key={claim.id}>
+                <td>{claim.id}</td>
+                <td>{claim.claimName}</td>
+                <td>{claim.providerName}</td>
+                <td>{formatter.format(claim.amount)}</td>
+                <td>{claim.notes}</td>
                 <td className="text-right">
                   <button
-                    onClick={() => handleEdit(product.id)}
+                    onClick={() => handleEdit(claim.id)}
                     className="button muted-button"
                   >
                     Edit
@@ -39,7 +41,7 @@ const Table = ({ products, handleEdit, handleDelete }) => {
                 </td>
                 <td className="text-left">
                   <button
-                    onClick={() => handleDelete(product.id)}
+                    onClick={() => handleDelete(claim.id)}
                     className="button muted-button"
                   >
                     Delete
@@ -49,7 +51,7 @@ const Table = ({ products, handleEdit, handleDelete }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={7}></td>
+              <td colSpan={7}>Loading...</td>
             </tr>
           )}
         </tbody>

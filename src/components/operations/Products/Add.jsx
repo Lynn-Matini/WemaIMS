@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { db } from '../../../firebase/config';
 
 const Add = ({ products, setProducts, setIsAdding, getProducts }) => {
   const [productName, setProductName] = useState('');

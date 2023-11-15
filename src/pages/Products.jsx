@@ -3,19 +3,21 @@ import Header from '../components/Header';
 import React, { useState, useEffect } from 'react';
 
 import Swal from 'sweetalert2';
-import Table from '../components/operations/Table';
-import Add from '../components/operations/Add';
-import Edit from '../components/operations/Edit';
-import AddButton from '../components/operations/AddButton';
+import Table from '../components/operations/Products/Table.jsx';
+import Add from '../components/operations/Products/Add.jsx';
+import Edit from '../components/operations/Products/Edit.jsx';
+import AddButton from '../components/operations/Products/AddButton.jsx';
 
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { auth, db } from '../firebase/config';
 
 const Products = () => {
   const [products, setProducts] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const user = auth.currentUser;
+  console.log(`Here ${user?.email}`);
 
   const getProducts = async () => {
     const querySnapshot = await getDocs(collection(db, 'products'));
@@ -73,12 +75,23 @@ const Products = () => {
         <div className="col-10">
           {!isAdding && !isEditing && (
             <>
-              <AddButton setIsAdding={setIsAdding} />
-              <Table
-                products={products}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
+              {user.email !== 'lynnmatini@gmail.com' ? (
+                <>
+                  <h2 className="mt-5">Pick an insurance product</h2>
+                  <Table products={products} />
+                </>
+              ) : (
+                <>
+                  <AddButton setIsAdding={setIsAdding} />
+
+                  <h2 className="mt-5">Insurance Products</h2>
+                  <Table
+                    products={products}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
+                </>
+              )}
             </>
           )}
           {isAdding && (
