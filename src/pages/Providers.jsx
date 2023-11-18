@@ -1,27 +1,16 @@
-import { useState, useEffect } from 'react';
-// import ProviderCard from '../components/ProviderCard';
+import SideNav from '../components/SideNav';
+import Header from '../components/Header';
 
 function Providers() {
-  const [providers, setProviders] = useState([]);
-
-  //   useEffect(() => {
-  //     fetch('https://api.example.com/providers')
-  //       .then(response => response.json())
-  //       .then(data => setProviders(data));
-  //   }, []);
-
   return (
-    <div>
-      <h1>Providers</h1>
-      {/* {providers.map(provider => (
-        <ProviderCard
-          key={provider.id}
-          name={provider.name}
-          address={provider.address}
-          phone={provider.phone}
-          website={provider.website}
-        />
-      ))} */}
+    <div className="row">
+      <Header />
+      <div className="col-2">
+        <SideNav />
+      </div>
+      <div className="col-10">
+        <h1>Providers</h1>
+      </div>
     </div>
   );
 }

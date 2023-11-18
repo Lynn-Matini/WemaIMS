@@ -5,8 +5,9 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Providers from './pages/Providers';
 import Claims from './pages/Claims';
+import Checkout from './pages/Checkout';
 import Authentication from './pages/Authentication';
-import PrivateRoutesLayout from './layouts/PrivateRoutesLayout';
+// import PrivateRoutesLayout from './layouts/PrivateRoutesLayout';
 
 function App() {
   return (
@@ -16,12 +17,13 @@ function App() {
       <Route path="*" element={<Error />} />
 
       {/* private routes */}
-      <Route element={<PrivateRoutesLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/providers" element={<Providers />} />
-        <Route path="/claims" element={<Claims />} />
-      </Route>
+      {/* <Route element={<PrivateRoutesLayout />}> */}
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/providers" element={<Providers />} />
+      <Route path="/claims" element={<Claims />} />
+      <Route path="/checkout" element={<Checkout />} />
+      {/* </Route> */}
     </Routes>
   );
 }

@@ -9,11 +9,12 @@ const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
   const [providerName, setProviderName] = useState('');
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
+  const [status, setStatus] = useState('PENDING');
 
   const handleAdd = async (e) => {
     e.preventDefault();
 
-    if (!claimName || !providerName || !amount) {
+    if (!claimName || !providerName || !amount || !notes || !status) {
       return Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -27,6 +28,7 @@ const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
       providerName,
       amount,
       notes,
+      status,
     };
 
     claims.push(newClaim);
@@ -87,6 +89,14 @@ const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
           name="notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+        />
+        <label htmlFor="status">Status</label>
+        <input
+          id="status"
+          type="text"
+          name="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
         />
         <div style={{ marginTop: '30px' }}>
           <input type="submit" value="Add" />

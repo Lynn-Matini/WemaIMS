@@ -53,7 +53,7 @@ const SideNav = () => {
           <Link to="/claims">Claims</Link>
         </li>
         <li>
-          <Link to="/report">Report</Link>
+          <Link to="/checkout">Checkout</Link>
         </li>
         <li>
           <Link onClick={handleLogout}>Log Out</Link>

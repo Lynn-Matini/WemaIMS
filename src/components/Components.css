@@ -3,6 +3,14 @@
   background-color: #1d2126;
 }
 
+.col-2 {
+  overflow-y: hidden;
+}
+
+.col-10 {
+  overflow-y: scroll;
+}
+
 .userText {
   color: white;
   display: flex;

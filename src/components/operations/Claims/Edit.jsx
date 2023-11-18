@@ -17,11 +17,12 @@ const Edit = ({
   const [providerName, setProviderName] = useState(selectedClaim.providerName);
   const [amount, setAmount] = useState(selectedClaim.amount);
   const [notes, setNotes] = useState(selectedClaim.notes);
+  const [status, setStatus] = useState(selectedClaim.status);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!claimName || !providerName || !notes) {
+    if (!claimName || !providerName || !amount || !notes || !status) {
       return Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -35,6 +36,7 @@ const Edit = ({
       providerName,
       amount,
       notes,
+      status,
     };
 
     await setDoc(doc(db, 'claims', id), {
@@ -79,8 +81,8 @@ const Edit = ({
           id="amount"
           type="number"
           name="amount"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
         />
         <label htmlFor="notes">Notes</label>
         <input
@@ -89,6 +91,14 @@ const Edit = ({
           name="notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+        />
+        <label htmlFor="status">Status</label>
+        <input
+          id="notes"
+          type="text"
+          name="notes"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
         />
         <div style={{ marginTop: '30px' }}>
           <input type="submit" value="Update" />

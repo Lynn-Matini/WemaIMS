@@ -21,13 +21,13 @@ const Dashboard = () => {
             <div className="col-3 ">
               <div className="dashboardDescription">
                 <p className="pTitle">4</p>
-                <p className="description">Number of Claims</p>
+                <p className="description">Number of Applied Claims</p>
               </div>
             </div>
             <div className="col-3">
               <div className="dashboardDescription">
                 <p className="pTitle">2</p>
-                <p className="description">Pending Approval</p>
+                <p className="description">Pending Products</p>
               </div>
             </div>
           </div>
@@ -36,13 +36,7 @@ const Dashboard = () => {
             <div className="col-3 ms-5">
               <div className="dashboardDescription">
                 <p className="pTitle">4</p>
-                <p className="description">Policy Categories</p>
-              </div>
-            </div>
-            <div className="col-3">
-              <div className="dashboardDescription">
-                <p className="pTitle">0</p>
-                <p className="description">Total Questions Asked</p>
+                <p className="description">Pending Claims</p>
               </div>
             </div>
             <div className="col-3">

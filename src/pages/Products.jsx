@@ -1,6 +1,7 @@
 import SideNav from '../components/SideNav';
 import Header from '../components/Header';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import Table from '../components/operations/Products/Table.jsx';
@@ -73,25 +74,18 @@ const Products = () => {
           <SideNav />
         </div>
         <div className="col-10">
+          <h2 className="mt-5">Insurance Products</h2>
+          <p>Please select an insurance product</p>
           {!isAdding && !isEditing && (
             <>
-              {user.email !== 'lynnmatini@gmail.com' ? (
-                <>
-                  <h2 className="mt-5">Pick an insurance product</h2>
-                  <Table products={products} />
-                </>
-              ) : (
-                <>
-                  <AddButton setIsAdding={setIsAdding} />
-
-                  <h2 className="mt-5">Insurance Products</h2>
-                  <Table
-                    products={products}
-                    handleEdit={handleEdit}
-                    handleDelete={handleDelete}
-                  />
-                </>
+              {user.email === 'lynnmatini@gmail.com' && (
+                <AddButton setIsAdding={setIsAdding} />
               )}
+              <Table
+                products={products}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
             </>
           )}
           {isAdding && (
@@ -106,11 +100,14 @@ const Products = () => {
             <Edit
               products={products}
               selectedProduct={selectedProduct}
-              setEmployees={setEmployees}
+              setProducts={setProducts}
               setIsEditing={setIsEditing}
               getProducts={getProducts}
             />
           )}
+          <Link to="/checkout">
+            <button>Checkout</button>
+          </Link>
         </div>
       </div>
     </>
