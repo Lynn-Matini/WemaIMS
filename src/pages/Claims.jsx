@@ -14,6 +14,7 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  onSnapshot,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 
@@ -31,10 +32,12 @@ const Claims = () => {
 
   const getClaims = async () => {
     const querySnapshot = await getDocs(collection(db, 'claims'));
-    const claims = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const claims = onSnapshot(
+      querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+    );
     setClaims(claims);
   };
 

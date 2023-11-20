@@ -1,26 +1,31 @@
 import { auth } from '../firebase/config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../firebase/config';
+import { doc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
+
 let error = null;
-
 const signUp = async (email, password, displayName) => {
-  error = null;
-
   try {
     // sign up with email and password
-    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    if (!res) {
+    // Add a new document to the "users" collection with user details
+    const userDocRef = doc(db, 'users', userCredential.user.uid);
+    await setDoc(userDocRef, {
+      displayName: displayName,
+      email: email,
+    });
+    console.log('User registered successfully!');
+    if (!userCredential) {
       throw new Error('Something went wrong, try again!');
     }
-
-    // include the display name in the user profile
-    await res.user.updateProfile({ displayName: displayName });
-
-    error = null;
-
-    console.log(res.user);
-  } catch (err) {
-    error = err.message;
-    console.log(error);
+  } catch (error) {
+    console.error('Error registering user: ', error.message);
   }
 };
 

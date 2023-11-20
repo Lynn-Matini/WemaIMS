@@ -34,7 +34,7 @@ const LoginFormComponent = (props) => {
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
