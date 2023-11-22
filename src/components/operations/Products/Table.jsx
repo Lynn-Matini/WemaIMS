@@ -19,7 +19,7 @@ const Table = ({ products, handleEdit, handleDelete }) => {
             <th>Name</th>
             <th>Monthly Premium</th>
             <th>Benefits</th>
-            {user.email === 'lynnmatini@gmail.com' && (
+            {user?.email === 'lynnmatini@gmail.com' && (
               <th colSpan={2} className="text-center">
                 Actions
               </th>
@@ -31,7 +31,12 @@ const Table = ({ products, handleEdit, handleDelete }) => {
             products.map((product, i) => (
               <tr key={product.id}>
                 <td>
-                  <input type="checkbox" className="checkbox-input" />
+                  <input
+                    type="checkbox"
+                    value={claim.id}
+                    onChange={() => handleCheckboxChange(product.id)}
+                    checked={selectedProducts(product.id)}
+                  />
                 </td>
                 <td>{product.id}</td>
                 <td>{product.productName}</td>

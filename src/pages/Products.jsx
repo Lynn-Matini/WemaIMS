@@ -17,6 +17,7 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [checkedProducts, setCheckedProducts] = useState({});
   const user = auth.currentUser;
   console.log(`Here ${user?.email}`);
 
@@ -32,6 +33,23 @@ const Products = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  const handleCheckboxChange = (value) => {
+    // If the checkbox is already checked, remove it from the array
+    if (checkedProducts.includes(value)) {
+      setCheckedProducts(
+        checkedProducts.filter((product) => product !== value)
+      );
+      // Otherwise add it to the array
+    } else {
+      setCheckedProducts([...checkedProducts, value]);
+    }
+  };
+
+  const handleCheckout = () => {
+    // Do something with the selected products (e.g., send them to the server)
+    console.log('Selected Products:', selectedProducts);
+  };
 
   const handleEdit = (id) => {
     const [product] = products.filter((product) => product.id === id);

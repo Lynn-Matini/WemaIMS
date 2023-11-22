@@ -15,7 +15,7 @@ const login = async (email, password) => {
     );
 
     // Get an existing document from the "users" collection with user details
-    const userDocRef = doc(db, 'users', userCredential.user.uid);
+    const userDocRef = doc(db, 'users', userCredential.uid);
     await getDoc(userDocRef);
     console.log('User logged in successfully!');
     if (!userCredential) {

@@ -1,4 +1,5 @@
 import '../../Components.css';
+import { auth } from '../../../firebase/config';
 
 const Table = ({
   claims,
@@ -6,14 +7,16 @@ const Table = ({
   handleDelete,
   handleUpdateStatus,
   getClaims,
-  handleCheckboxChange,
-  isChecked,
+  presentUser,
+  // handleCheckboxChange,
+  // isChecked,
 }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KEN',
     minimumFractionDigits: null,
   });
+  const user = auth.currentUser;
 
   return (
     <div className="contain-table">
@@ -27,10 +30,11 @@ const Table = ({
             <th>Amount</th>
             <th>Notes</th>
             <th>Status</th>
-
-            <th colSpan={2} className="text-center">
-              Actions
-            </th>
+            {user?.email === 'lynnmatini@gmail.com' && (
+              <th colSpan={2} className="text-center">
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -41,8 +45,8 @@ const Table = ({
                   <input
                     type="checkbox"
                     value={claim.id}
-                    onChange={() => handleCheckboxChange(claim.id)}
-                    checked={isChecked(claim.id)}
+                    // onChange={() => handleCheckboxChange(claim.id)}
+                    // checked={isChecked(claim.id)}
                   />
                 </th>
                 <td>{claim.id}</td>
@@ -51,38 +55,38 @@ const Table = ({
                 <td>{formatter.format(claim.amount)}</td>
                 <td>{claim.notes}</td>
                 <td>{claim.status}</td>
-                <div className="text-left">
-                  <td>
-                    <button
-                      onClick={async () => {
-                        await handleUpdateStatus(claim.id, 'APPROVED');
-                        await getClaims();
-                      }}
-                    >
-                      Approve
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      onClick={async () => {
-                        await handleUpdateStatus(claim.id, 'DENIED');
-                        await getClaims();
-                      }}
-                    >
-                      Reject
-                    </button>
-                  </td>
-                </div>
-                <div className="text-right">
-                  <td>
-                    <button onClick={() => handleEdit(claim.id)}>Edit</button>
-                  </td>
-                  <td>
-                    <button onClick={() => handleDelete(claim.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </div>
+                {user.email === 'lynnmatini@gmail.com' && (
+                  <div>
+                    <td>
+                      <button
+                        onClick={async () => {
+                          await handleUpdateStatus(claim.id, 'APPROVED');
+                          await getClaims();
+                        }}
+                      >
+                        Approve
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={async () => {
+                          await handleUpdateStatus(claim.id, 'DENIED');
+                          await getClaims();
+                        }}
+                      >
+                        Reject
+                      </button>
+                    </td>
+                    <td>
+                      <button onClick={() => handleEdit(claim.id)}>Edit</button>
+                    </td>
+                    <td>
+                      <button onClick={() => handleDelete(claim.id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </div>
+                )}
               </tr>
             ))
           ) : (

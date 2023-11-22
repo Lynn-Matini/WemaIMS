@@ -1,8 +1,10 @@
 import SideNav from '../components/SideNav';
 import Header from '../components/Header';
 import React, { useState } from 'react';
+import { auth } from '../firebase/config';
 
 function Checkout() {
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',

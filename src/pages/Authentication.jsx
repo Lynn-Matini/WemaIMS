@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import LoginFormComponent from '../components/Forms/LoginFormComponent';
 import SignUpFormComponent from '../components/Forms/SignUpFormComponent';
+import { auth } from '../firebase/config';
 
 const Authentication = () => {
   const [toggleForm, setToggleForm] = useState(true);
@@ -9,6 +10,7 @@ const Authentication = () => {
   };
   return (
     <>
+      {console.log(auth.currentUser)}
       {toggleForm ? (
         <LoginFormComponent toggleSignUp={handleToggle} />
       ) : (

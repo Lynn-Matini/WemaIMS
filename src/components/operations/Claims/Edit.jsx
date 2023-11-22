@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 
 const Edit = ({
@@ -10,6 +10,7 @@ const Edit = ({
   setClaims,
   setIsEditing,
   getClaims,
+  currentUser,
 }) => {
   const id = selectedClaim.id;
 
@@ -39,9 +40,10 @@ const Edit = ({
       status,
     };
 
-    await setDoc(doc(db, 'claims', id), {
-      ...claim,
-    });
+    //Updating document in firestore
+    const userDocRef = doc(db, 'users', currentUser.uid);
+    const claimDocRef = doc(collection(userDocRef, 'claims'), id);
+    await setDoc(claimDocRef, { ...claim });
 
     setClaims(claims);
     setIsEditing(false);

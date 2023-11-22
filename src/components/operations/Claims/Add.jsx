@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../../firebase/config';
+import { collection, addDoc, doc } from 'firebase/firestore';
+import { auth, db } from '../../../firebase/config';
 
-const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
+const Add = ({ claims, setClaims, setIsAdding, getClaims, currentUser }) => {
   const [claimName, setClaimName] = useState('');
   const [providerName, setProviderName] = useState('');
   const [amount, setAmount] = useState('');
@@ -34,9 +34,9 @@ const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
     claims.push(newClaim);
 
     try {
-      await addDoc(collection(db, 'claims'), {
-        ...newClaim,
-      });
+      const userDocRef = doc(db, 'users', currentUser.uid);
+      const claimDocRef = collection(userDocRef, 'claims');
+      await addDoc(claimDocRef, { ...newClaim });
     } catch (error) {
       console.log(error);
     }

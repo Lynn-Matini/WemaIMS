@@ -14,54 +14,56 @@ import {
   doc,
   deleteDoc,
   updateDoc,
-  onSnapshot,
 } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 
 const Claims = () => {
-  const [claims, setClaims] = useState();
+  const [claims, setClaims] = useState([]);
   const [selectedClaim, setSelectedClaim] = useState(null);
-
   //It weirdly means checkbox is not checked
   // const [checked, setChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const user = auth.currentUser;
-  console.log(`Here ${user?.email}`);
+
+  console.log(`Here from Claims.jsx ${user?.email}`);
 
   const getClaims = async () => {
-    const querySnapshot = await getDocs(collection(db, 'claims'));
-    const claims = onSnapshot(
-      querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-    );
+    console.log('Inside ' + user?.uid);
+    const userDocRef = doc(db, 'users', user?.uid);
+    const querySnapshot = await getDocs(collection(userDocRef, 'claims'));
+    const claims = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     setClaims(claims);
+    console.log(claims);
   };
 
   useEffect(() => {
     getClaims();
-  }, []);
+  }, [user]);
 
   const handleUpdateStatus = async (id, newStatus) => {
-    await updateDoc(doc(db, 'claims', id), {
+    const userDocRef = doc(db, 'users', currentUser.uid);
+    const claimDocRef = doc(collection(userDocRef, 'claims'), id);
+    await updateDoc(claimDocRef, {
       status: newStatus,
     });
     console.log('Changed status to ' + newStatus);
   };
 
-  const handleCheckboxChange = (value) => {
-    // If the checkbox is already checked, remove it from the array
-    if (checkedItems.includes(value)) {
-      setCheckedItems(checkedItems.filter((item) => item !== value));
-    } else {
-      // If the checkbox is not checked, add it to the array
-      setCheckedItems([...checkedItems, value]);
-    }
-  };
-  const isChecked = (value) => checkedItems.includes(value);
+  // const handleCheckboxChange = (value) => {
+  // If the checkbox is already checked, remove it from the array
+  // if (checkedItems.includes(value)) {
+  // setCheckedItems(checkedItems.filter((item) => item !== value));
+  // } else {
+  // If the checkbox is not checked, add it to the array
+  // setCheckedItems([...checkedItems, value]);
+  // }
+  // };
+  // const isChecked = (value) => checkedItems.includes(value);
   //   setChecked(!checked);
 
   //   if (checked === true) {
@@ -90,8 +92,11 @@ const Claims = () => {
       cancelButtonText: 'No, cancel!',
     }).then((result) => {
       if (result.value) {
+        //DELETE FROM FIRESTORE
+        const userDocRef = doc(db, 'users', user.uid);
         const [claim] = claims.filter((claim) => claim.id === id);
-        deleteDoc(doc(db, 'claims', id));
+        const claimDocRef = doc(collection(userDocRef, 'claims'), id);
+        deleteDoc(claimDocRef);
 
         Swal.fire({
           icon: 'success',
@@ -111,7 +116,7 @@ const Claims = () => {
       <div className="row">
         <Header />
         <div className="col-2">
-          <SideNav />
+          <SideNav user={user} />
         </div>
         <div className="col-10">
           <h2 className="mt-5">Claims</h2>
@@ -119,18 +124,20 @@ const Claims = () => {
             <>
               <AddButton setIsAdding={setIsAdding} />
               <Table
+                // presentUser={presentUser}
                 claims={claims}
                 getClaims={getClaims}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 handleUpdateStatus={handleUpdateStatus}
-                handleCheckboxChange={handleCheckboxChange}
-                isChecked={isChecked}
+                // handleCheckboxChange={handleCheckboxChange}
+                // isChecked={isChecked}
               />
             </>
           )}
           {isAdding && (
             <Add
+              // presentUser={presentUser}
               claims={claims}
               setClaims={setClaims}
               setIsAdding={setIsAdding}
@@ -139,6 +146,7 @@ const Claims = () => {
           )}
           {isEditing && (
             <Edit
+              // presentUser={presentUser}
               claims={claims}
               selectedClaim={selectedClaim}
               setClaims={setClaims}
