@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { collection, doc, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
+import { AuthContext } from '../../auth';
 
 const Edit = ({
   claims,
@@ -10,9 +11,10 @@ const Edit = ({
   setClaims,
   setIsEditing,
   getClaims,
-  currentUser,
 }) => {
   const id = selectedClaim.id;
+  useContext;
+  const { currentUser } = useContext(AuthContext);
 
   const [claimName, setClaimName] = useState(selectedClaim.claimName);
   const [providerName, setProviderName] = useState(selectedClaim.providerName);

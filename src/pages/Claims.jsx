@@ -1,6 +1,6 @@
 import SideNav from '../components/SideNav';
 import Header from '../components/Header';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Swal from 'sweetalert2';
 import Table from '../components/operations/Claims/Table.jsx';
@@ -15,35 +15,35 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { auth, db } from '../firebase/config';
+import { db } from '../firebase/config';
+import { AuthContext } from '../components/auth.jsx';
 
 const Claims = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const [claims, setClaims] = useState([]);
   const [selectedClaim, setSelectedClaim] = useState(null);
   //It weirdly means checkbox is not checked
   // const [checked, setChecked] = useState(false);
-  const [checkedItems, setCheckedItems] = useState({});
+  // const [checkedItems, setCheckedItems] = useState({});
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const user = auth.currentUser;
-
-  console.log(`Here from Claims.jsx ${user?.email}`);
 
   const getClaims = async () => {
-    console.log('Inside ' + user?.uid);
-    const userDocRef = doc(db, 'users', user?.uid);
+    const userDocRef = doc(db, 'users', currentUser.uid);
     const querySnapshot = await getDocs(collection(userDocRef, 'claims'));
     const claims = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
     setClaims(claims);
-    console.log(claims);
+    // console.log(claims);
+    // console.log('Inside ' + currentUser.uid);
   };
 
   useEffect(() => {
     getClaims();
-  }, [user]);
+  }, []);
 
   const handleUpdateStatus = async (id, newStatus) => {
     const userDocRef = doc(db, 'users', currentUser.uid);
@@ -54,14 +54,6 @@ const Claims = () => {
     console.log('Changed status to ' + newStatus);
   };
 
-  // const handleCheckboxChange = (value) => {
-  // If the checkbox is already checked, remove it from the array
-  // if (checkedItems.includes(value)) {
-  // setCheckedItems(checkedItems.filter((item) => item !== value));
-  // } else {
-  // If the checkbox is not checked, add it to the array
-  // setCheckedItems([...checkedItems, value]);
-  // }
   // };
   // const isChecked = (value) => checkedItems.includes(value);
   //   setChecked(!checked);
@@ -93,7 +85,7 @@ const Claims = () => {
     }).then((result) => {
       if (result.value) {
         //DELETE FROM FIRESTORE
-        const userDocRef = doc(db, 'users', user.uid);
+        const userDocRef = doc(db, 'users', currentUser.uid);
         const [claim] = claims.filter((claim) => claim.id === id);
         const claimDocRef = doc(collection(userDocRef, 'claims'), id);
         deleteDoc(claimDocRef);
@@ -116,7 +108,7 @@ const Claims = () => {
       <div className="row">
         <Header />
         <div className="col-2">
-          <SideNav user={user} />
+          <SideNav />
         </div>
         <div className="col-10">
           <h2 className="mt-5">Claims</h2>
@@ -124,20 +116,17 @@ const Claims = () => {
             <>
               <AddButton setIsAdding={setIsAdding} />
               <Table
-                // presentUser={presentUser}
                 claims={claims}
                 getClaims={getClaims}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 handleUpdateStatus={handleUpdateStatus}
-                // handleCheckboxChange={handleCheckboxChange}
                 // isChecked={isChecked}
               />
             </>
           )}
           {isAdding && (
             <Add
-              // presentUser={presentUser}
               claims={claims}
               setClaims={setClaims}
               setIsAdding={setIsAdding}
@@ -146,7 +135,6 @@ const Claims = () => {
           )}
           {isEditing && (
             <Edit
-              // presentUser={presentUser}
               claims={claims}
               selectedClaim={selectedClaim}
               setClaims={setClaims}

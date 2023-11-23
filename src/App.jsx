@@ -7,24 +7,28 @@ import Providers from './pages/Providers';
 import Claims from './pages/Claims';
 import Checkout from './pages/Checkout';
 import Authentication from './pages/Authentication';
+import AuthProvider from './components/auth';
+
 // import PrivateRoutesLayout from './layouts/PrivateRoutesLayout';
 
 function App() {
   return (
-    <Routes>
-      {/* public routes */}
-      <Route path="/" element={<Authentication />} />
-      <Route path="*" element={<Error />} />
+    <AuthProvider>
+      <Routes>
+        {/* public routes */}
+        <Route path="/" element={<Authentication />} />
+        <Route path="*" element={<Error />} />
 
-      {/* private routes */}
-      {/* <Route element={<PrivateRoutesLayout />}> */}
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/providers" element={<Providers />} />
-      <Route path="/claims" element={<Claims />} />
-      <Route path="/checkout" element={<Checkout />} />
-      {/* </Route> */}
-    </Routes>
+        {/* private routes */}
+        {/* <Route element={<PrivateRoutesLayout />}> */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/providers" element={<Providers />} />
+        <Route path="/claims" element={<Claims />} />
+        <Route path="/checkout" element={<Checkout />} />
+        {/* </Route> */}
+      </Routes>
+    </AuthProvider>
   );
 }
 

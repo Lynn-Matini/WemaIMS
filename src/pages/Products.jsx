@@ -1,6 +1,6 @@
 import SideNav from '../components/SideNav';
 import Header from '../components/Header';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
@@ -10,16 +10,19 @@ import Edit from '../components/operations/Products/Edit.jsx';
 import AddButton from '../components/operations/Products/AddButton.jsx';
 
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase/config';
+import { db } from '../firebase/config';
+import { AuthContext } from '../components/auth.jsx';
 
 const Products = () => {
   const [products, setProducts] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [checkedProducts, setCheckedProducts] = useState({});
-  const user = auth.currentUser;
-  console.log(`Here ${user?.email}`);
+  const [checkedProducts, setCheckedProducts] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  // const [selectedProducts, setSelectedProducts] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+  console.log(`Here ${currentUser?.email}`);
 
   const getProducts = async () => {
     const querySnapshot = await getDocs(collection(db, 'products'));
@@ -34,21 +37,27 @@ const Products = () => {
     getProducts();
   }, []);
 
-  const handleCheckboxChange = (value) => {
+  const handleCheckboxChange = () => {
+    const { value, checked } = event.target;
     // If the checkbox is already checked, remove it from the array
-    if (checkedProducts.includes(value)) {
-      setCheckedProducts(
-        checkedProducts.filter((product) => product !== value)
-      );
+    if (isChecked) {
+      setCheckedProducts((prevProducts) => [...prevProducts, value]);
+      console.log(checkedProducts);
+
       // Otherwise add it to the array
     } else {
-      setCheckedProducts([...checkedProducts, value]);
+      setCheckedProducts((prevProducts) => [
+        ...prevProducts.filter((product) => product !== value),
+      ]);
     }
+    console.log(checkedProducts);
+    // console.log(value);
   };
+  // console.log(isChecked);
 
   const handleCheckout = () => {
     // Do something with the selected products (e.g., send them to the server)
-    console.log('Selected Products:', selectedProducts);
+    console.log('Selected Products:', checkedProducts);
   };
 
   const handleEdit = (id) => {
@@ -96,13 +105,16 @@ const Products = () => {
           <p>Please select an insurance product</p>
           {!isAdding && !isEditing && (
             <>
-              {user.email === 'lynnmatini@gmail.com' && (
+              {currentUser && currentUser.email === 'lynnmatini@gmail.com' && (
                 <AddButton setIsAdding={setIsAdding} />
               )}
               <Table
                 products={products}
+                checkedProducts={checkedProducts}
+                setCheckedProducts={setCheckedProducts}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
+                handleCheckboxChange={handleCheckboxChange}
               />
             </>
           )}

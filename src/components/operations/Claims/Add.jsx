@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { collection, addDoc, doc } from 'firebase/firestore';
-import { auth, db } from '../../../firebase/config';
+import { db } from '../../../firebase/config';
+import { AuthContext } from '../../auth';
 
-const Add = ({ claims, setClaims, setIsAdding, getClaims, currentUser }) => {
+const Add = ({ claims, setClaims, setIsAdding, getClaims }) => {
   const [claimName, setClaimName] = useState('');
   const [providerName, setProviderName] = useState('');
   const [amount, setAmount] = useState('');
   const [notes, setNotes] = useState('');
   const [status, setStatus] = useState('PENDING');
+  const { currentUser } = useContext(AuthContext);
 
   const handleAdd = async (e) => {
     e.preventDefault();
