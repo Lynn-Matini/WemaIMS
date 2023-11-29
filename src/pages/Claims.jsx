@@ -43,7 +43,7 @@ const Claims = () => {
 
   useEffect(() => {
     getClaims();
-  }, []);
+  }, [currentUser]);
 
   const handleUpdateStatus = async (id, newStatus) => {
     const userDocRef = doc(db, 'users', currentUser.uid);
@@ -53,19 +53,6 @@ const Claims = () => {
     });
     console.log('Changed status to ' + newStatus);
   };
-
-  // };
-  // const isChecked = (value) => checkedItems.includes(value);
-  //   setChecked(!checked);
-
-  //   if (checked === true) {
-  //     const [claim] = claims.filter((claim) => claim.id === id);
-  //     setSelectedClaim(claim);
-  //     console.log('Picked ' + claim.id);
-  //     console.log(checked);
-  //   }
-  //   console.log(claim.checked);
-  // };
 
   const handleEdit = (id) => {
     const [claim] = claims.filter((claim) => claim.id === id);
@@ -121,7 +108,6 @@ const Claims = () => {
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 handleUpdateStatus={handleUpdateStatus}
-                // isChecked={isChecked}
               />
             </>
           )}

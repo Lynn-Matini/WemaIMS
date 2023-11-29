@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 
 const Edit = ({
@@ -12,6 +12,7 @@ const Edit = ({
   getProducts,
 }) => {
   const id = selectedProduct.id;
+  const { currentUser } = useContext(AuthContext);
 
   const [productName, setProductName] = useState(selectedProduct.productName);
   const [benefits, setBenefits] = useState(selectedProduct.benefits);
@@ -35,7 +36,10 @@ const Edit = ({
       premium,
     };
 
-    await setDoc(doc(db, 'products', id), {
+    //Updating document in firestore
+    const userDocRef = doc(db, 'users', currentUser.uid);
+    const productDocRef = doc(collection(userDocRef, 'products'), id);
+    await setDoc(productDocRef, {
       ...product,
     });
 

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 
-import { collection, doc, updateDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 import { AuthContext } from '../../auth';
 

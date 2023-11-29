@@ -15,7 +15,7 @@ const signUp = async (email, password, displayName) => {
     );
 
     // Add a new document to the "users" collection with user details
-    const userDocRef = doc(db, 'users', userCredential.user.uid);
+    const userDocRef = doc(db, 'users', userCredential.uid);
     await setDoc(userDocRef, {
       displayName: displayName,
       email: email,

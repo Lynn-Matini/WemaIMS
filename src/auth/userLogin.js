@@ -22,7 +22,7 @@ const login = async (email, password) => {
       throw new Error('Something went wrong, try again!');
     }
   } catch (error) {
-    console.error('Error logging in user: ', error.message);
+    console.error('Error logging in user');
   }
 };
 

@@ -4,14 +4,15 @@ import { AuthContext } from '../../auth';
 
 const Table = ({
   products,
+  checkedProducts = [],
   handleEdit,
   handleDelete,
   handleCheckboxChange,
   isChecked,
-  checkedProducts,
-  setCheckedProducts,
+  setIsChecked,
 }) => {
   const { currentUser } = useContext(AuthContext);
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KEN',
@@ -40,7 +41,14 @@ const Table = ({
             products.map((product, i) => (
               <tr key={product.id}>
                 <td>
-                  <input type="checkbox" value={product.id} />
+                  <input
+                    type="checkbox"
+                    value={product.premium}
+                    checked={checkedProducts.includes(product.premium)}
+                    onChange={(e) => {
+                      handleCheckboxChange(e, product.premium);
+                    }}
+                  />
                 </td>
                 <td>{product.id}</td>
                 <td>{product.productName}</td>

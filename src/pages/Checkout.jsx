@@ -3,11 +3,11 @@ import Header from '../components/Header';
 import React, { useState } from 'react';
 import { auth } from '../firebase/config';
 
-function Checkout() {
-  const [selectedProducts, setSelectedProducts] = useState([]);
+function Checkout({ checkedProducts }) {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
+    // fullName: auth.currentUser.displayName,
+    email: auth.currentUser.email,
+    products: checkedProducts,
   });
 
   const handleChange = (e) => {
@@ -54,11 +54,11 @@ function Checkout() {
             />
           </div>
           <div>
-            <label>Picked Products:</label>
+            <label>Picked Products: </label>
             <input
               type="text"
               name="products"
-              // value={formData.email}
+              value={formData.products}
               // onChange={handleChange}
               required
             />

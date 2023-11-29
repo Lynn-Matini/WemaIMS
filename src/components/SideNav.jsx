@@ -32,10 +32,6 @@ const SideNav = () => {
         <li>
           <Link to="/products">Products</Link>
         </li>
-
-        <li>
-          <Link to="/providers">Providers</Link>
-        </li>
         <li>
           <Link to="/claims">Claims</Link>
         </li>

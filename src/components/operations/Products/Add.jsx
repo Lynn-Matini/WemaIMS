@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
+import { AuthContext } from '../../auth';
 
 const Add = ({ products, setProducts, setIsAdding, getProducts }) => {
   const [productName, setProductName] = useState('');
   const [benefits, setBenefits] = useState('');
   const [premium, setPremium] = useState('');
+  const { currentUser } = useContext(AuthContext);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -30,7 +32,9 @@ const Add = ({ products, setProducts, setIsAdding, getProducts }) => {
     products.push(newProduct);
 
     try {
-      await addDoc(collection(db, 'products'), {
+      const userDocRef = doc(db, 'users', currentUser.uid);
+      const productDocRef = collection(userDocRef, 'products');
+      await addDoc(productDocRef, {
         ...newProduct,
       });
     } catch (error) {
