@@ -63,7 +63,6 @@ function Checkout({ checkedProducts }) {
               required
             />
           </div>
-
           <button type="submit">Place Order</button>
         </form>
       </div>

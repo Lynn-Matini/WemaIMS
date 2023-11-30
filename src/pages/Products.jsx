@@ -98,9 +98,6 @@ const Products = () => {
     });
   };
 
-//     const totalIncome = () => {
-//   return Object.values(checkedProducts).reduce((total, value) => total + value, 0)
-// }
   return (
     <>
       <div className="row">
@@ -147,10 +144,16 @@ const Products = () => {
           )}
 
           <button>Checkout</button>
-          <p>Selected Products: {checkedProducts}</p>
-          {/* <p>
-            Total Amount: {checkedProducts.reduce((a, b) => ((a = a + b), 0))}
-          </p> */}
+          <p>
+            Selected Products:{' '}
+            {checkedProducts.map((product) => (
+              <li>{product}</li>
+            ))}
+          </p>
+          <p>
+            Total Amount:{' '}
+            {checkedProducts.reduce((total, product) => total + product, 0)}
+          </p>
           <p>Mpesa Paybill number: 589898</p>
         </div>
       </div>
